@@ -43,6 +43,7 @@ def load_approaches(cad_json_path):
     # TODO: Load close approach data from the given JSON file.
     with open(cad_json_path, 'r') as f:
         cad_data = json.load(f)
-
-    cads = cad_data['data']
+    cads = []
+    for cad in cad_data['data']:
+        cads.append(CloseApproach(cad[0], cad[3], cad[4], cad[7]))
     return cads
