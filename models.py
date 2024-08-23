@@ -34,20 +34,35 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, **info):
+    def __init__(self, designation, name, diameter, hazardous):
         """Create a new `NearEarthObject`.
 
-        :param info: A dictionary of excess keyword arguments supplied to the constructor.
+        :param designation: A string with unique identifier for near earth object(neo)
+        :param name: A string with common name of neo, not all neos have a common name, so may receive empty string
+        :param diameter: A string with diameter of the neo, not all data has a diameter so may receive empty string
+        :param hazardous: A string with values Y for hazardous and N for not hazardous
         """
         # TODO: Assign information from the arguments passed to the constructor
         # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        self.designation = ''
-        self.name = None
-        self.diameter = float('nan')
-        self.hazardous = False
+        self.designation = designation
+
+        if name:
+            self.name = name
+        else:
+            self.name = None
+
+        if diameter:
+            self.diameter = diameter
+        else:
+            self.diameter = float('nan')
+        
+        if hazardous == 'Y':
+            self.hazardous = True
+        else:
+            self.hazardous = False
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
