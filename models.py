@@ -71,7 +71,7 @@ class NearEarthObject:
     def fullname(self):
         """Return a representation of the full name of this NEO."""
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return ''
+        return f"Designation: {self.designation} - Common Name: {self.name}"
 
     def __str__(self):
         """Return `str(self)`."""
