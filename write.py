@@ -34,6 +34,7 @@ def write_to_csv(results, filename):
         for approach in results:
             approach_attrs = approach.serialize()
             neo_attrs = approach.neo.serialize()
+
             writer.writerow([approach_attrs['datetime_utc'], approach_attrs['distance_au'], approach_attrs['velocity_km_s'], neo_attrs['designation'], neo_attrs['name'], neo_attrs['diameter_km'], neo_attrs['potentially_hazardous']])
 
 
@@ -51,11 +52,14 @@ def write_to_json(results, filename):
     approaches = []
     for approach in results:
         approach_for_json = {}
+
         approach_attrs = approach.serialize()
         neo_attrs = approach.neo.serialize() 
+
         approach_for_json['datetime_utc'] = approach_attrs['datetime_utc']
         approach_for_json['distance_au'] = approach_attrs['distance_au']
         approach_for_json['velocity_km_s'] = approach_attrs['velocity_km_s']
+
         approach_for_json['neo'] = {}
         approach_for_json['neo']['designation'] = neo_attrs['designation']
         approach_for_json['neo']['name'] = neo_attrs['name']
@@ -63,5 +67,6 @@ def write_to_json(results, filename):
         approach_for_json['neo']['potentially_hazardous'] = neo_attrs['potentially_hazardous']
 
         approaches.append(approach_for_json)
+
     with open(filename, 'w') as outfile:
         json.dump(approaches, outfile, indent=2)
