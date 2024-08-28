@@ -50,3 +50,20 @@ def write_to_json(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
     # TODO: Write the results to a JSON file, following the specification in the instructions.
+    approaches = []
+    for approach in results:
+        approach_for_json = {}
+        approach_attrs = approach.serialize()
+        neo_attrs = approach.neo.serialize() 
+        approach_for_json['datetime_utc'] = approach_attrs['datetime_utc']
+        approach_for_json['distance_au'] = approach_attrs['distance_au']
+        approach_for_json['velocity_km_s'] = approach_attrs['velocity_km_s']
+        approach_for_json['neo'] = {}
+        approach_for_json['neo']['designation'] = neo_attrs['designation']
+        approach_for_json['neo']['name'] = neo_attrs['name']
+        approach_for_json['neo']['diameter_km'] = neo_attrs['diameter_km']
+        approach_for_json['neo']['potentially_hazardous'] = neo_attrs['potentially_hazardous']
+
+        approaches.append(approach_for_json)
+    with open(filename, 'w') as outfile:
+        json.dump(approaches, outfile, indent=2)
