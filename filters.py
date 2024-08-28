@@ -133,7 +133,28 @@ def create_filters(
     :return: A collection of filters for use with `query`.
     """
     # TODO: Decide how you will represent your filters.
-    return ()
+    filters = []
+    if date != None:
+        filters.append(DateFilter(operator.eq), date) 
+    if start_date != None:
+        filters.append(DateFilter(operator.ge), start_date)
+    if end_date != None:
+        filters.append(DateFilter(operator.le), end_date)
+    if distance_min != None:
+        filters.append(DistanceFilter(operator.ge), distance_min)
+    if distance_max != None:
+        filters.append(DistanceFilter(operator.le), distance_max)
+    if velocity_min != None:
+        filters.append(VelocityFilter(operator.ge), velocity_min)
+    if velocity_max != None:
+        filters.append(VelocityFilter(operator.le), velocity_max)
+    if diameter_min != None:
+        filters.append(DiameterFilter(operator.ge), diameter_min)
+    if diameter_max != None:
+        filters.append(DiameterFilter(operator.le), diameter_max)
+    if hazardous != None:
+        filters.append(HazardousFilter(operator.eq), hazardous) 
+    return filters
 
 
 def limit(iterator, n=None):
