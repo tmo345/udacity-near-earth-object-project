@@ -48,6 +48,7 @@ class NEODatabase:
         for neo in self._neos:
             if neo.name:
                 self._neo_name_dict[neo.name] = neo
+
         self._neo_desig_dict = {}
         for neo in self._neos:
             self._neo_desig_dict[neo.designation] = neo
