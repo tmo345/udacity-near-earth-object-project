@@ -29,6 +29,13 @@ def write_to_csv(results, filename):
         'designation', 'name', 'diameter_km', 'potentially_hazardous'
     )
     # TODO: Write the results to a CSV file, following the specification in the instructions.
+    with open(filename, 'w') as outfile:
+        writer = csv.writer(outfile)
+        writer.writerow(fieldnames)
+        for approach in results:
+            approach_attrs = approach.serialize()
+            neo_attrs = approach.neo.serialize()
+            writer.writerow([approach_attrs['datetime_utc'], approach_attrs['distance_au'], approach_attrs['velocity_km_s'], neo_attrs['designation'], neo_attrs['name'], neo_attrs['diameter_km'], neo_attrs['potentially_hazardous']])
 
 
 def write_to_json(results, filename):
