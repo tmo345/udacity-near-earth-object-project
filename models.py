@@ -84,7 +84,29 @@ class NearEarthObject:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, " \
                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
+    
+    def serialize(self):
+        """Returns a dictionary of attributes for CSV or JSON serialization
+        
+        Per project specifications:
+        - Fields are 'designation', 'name', 'diameter_km', 'potentially_hazardous'
+        - Missing names are repesented by empty strings
+        """
+        attributes = {}
 
+        attributes['designation'] = self.designation
+
+        if self.name:
+            attributes['name'] = self.name
+        else:
+            attributes['name'] = ''
+        
+        attributes['diameter_km'] = self.diameter
+        attributes['potentially_hazardous'] = self.hazardous
+        
+        return attributes
+        
+                
 
 class CloseApproach:
     """A close approach to Earth by an NEO.
