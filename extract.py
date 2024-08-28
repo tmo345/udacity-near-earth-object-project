@@ -25,11 +25,11 @@ def load_neos(neo_csv_path):
     :return: A collection of `NearEarthObject`s.
     """
     # TODO: Load NEO data from the given CSV file.
-    neos = {}
+    neos = []
     with open(neo_csv_path, 'r') as f:
         reader = csv.DictReader(f)
         for line in reader:
-            neos[line['pdes']] = NearEarthObject(line['pdes'], line['name'], line['diameter'], line['pha'])
+            neos.append(NearEarthObject(line['pdes'], line['name'], line['diameter'], line['pha']))
     
     return neos
 
