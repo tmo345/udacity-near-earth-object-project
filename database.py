@@ -42,15 +42,18 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
+        # Precompute dictionary of neos by designation
+        self._neo_desig_dict = {}
+        for neo in self._neos:
+            self._neo_desig_dict[neo.designation] = neo
+        
+        # Precompute dictionary of neos by name
         self._neo_name_dict = {}
         for neo in self._neos:
             if neo.name:
                 self._neo_name_dict[neo.name] = neo
 
-        self._neo_desig_dict = {}
-        for neo in self._neos:
-            self._neo_desig_dict[neo.designation] = neo
-        
+        # Set neo attribute to appropriate NearEarthObject and add the approach to that NearEarthObject's approaches attribute
         for approach in self._approaches:
             approach.neo = self._neo_desig_dict[approach._designation]
             approach.neo.approaches.append(approach)
