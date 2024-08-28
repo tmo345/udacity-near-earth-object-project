@@ -172,3 +172,18 @@ class CloseApproach:
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, " \
                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
+
+    def serialize(self):
+        """Returns a dictionary of attributes for CSV or JSON serialization
+        
+        Per project specifications:
+        - Fields are 'datetime_utc', 'distance_au', 'velocity_km_s' 
+        """
+        
+        attributes = {}
+
+        attributes['datetime_utc'] = datetime_to_str(self.time)
+        attributes['distance_au'] = self.distance
+        attributes['velocity_km_s'] = self.velocity
+
+        return attributes        
