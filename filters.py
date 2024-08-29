@@ -71,30 +71,87 @@ class AttributeFilter:
     def __repr__(self):
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
+
 class DistanceFilter(AttributeFilter):
+    """A concrete subclass of AttributeFilter for the distance attribute
+
+    Overrides the `get` classmethod behavior to fetch the distance attribute from the given 
+    `CloseApproach`.
+    """
+
     @classmethod
     def get(cls, approach):
-       return approach.distance 
+        """Get distance attribute from a close approach.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The distance attribute of the `CloseApproach`, comparable to `self.value` via `self.op`.
+        """
+        return approach.distance 
     
+
 class VelocityFilter(AttributeFilter):
+    """A concrete subclass of AttributeFilter for the velocity attribute
+
+    Overrides the `get` classmethod behavior to fetch the velocity attribute from the given 
+    `CloseApproach`.
+    """
     @classmethod
     def get(cls, approach):
+        """Get velocity attribute from a close approach.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The velocity attribute of the `CloseApproach`, comparable to `self.value` via `self.op`.
+        """
         return approach.velocity
 
+
 class DiameterFilter(AttributeFilter):
+    """A concrete subclass of AttributeFilter for the diameter attribute
+
+    Overrides the `get` classmethod behavior to fetch the diameter attribute from the given 
+    `CloseApproach`'s associated neo.
+    """
     @classmethod
     def get(cls, approach):
+        """Get diameter attribute from a close approach's associated neo.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The diameter attribute of the `CloseApproach`'s associated neo, comparable to `self.value` via `self.op`.
+        """
         return approach.neo.diameter
 
+
 class HazardousFilter(AttributeFilter):
+    """A concrete subclass of AttributeFilter for the hazardous attribute
+
+    Overrides the `get` classmethod behavior to fetch the hazardous attribute from the given 
+    `CloseApproach`'s associated neo.
+    """
     @classmethod
     def get(cls, approach):
+        """Get hazardous attribute from a close approach's associated neo.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The hazardous attribute of the `CloseApproach`'s associated neo, comparable to `self.value` via `self.op`.
+        """
         return approach.neo.hazardous
 
+
 class DateFilter(AttributeFilter):
+    """A concrete subclass of AttributeFilter for the date derived from the time attribute
+
+    Overrides the `get` classmethod behavior to fetch the date derived from the time attribute from the given 
+    `CloseApproach`.
+    """
     @classmethod
     def get(cls, approach):
+        """Get date derived from the time attribute from a close approach.
+
+        :param approach: A `CloseApproach` on which to evaluate this filter.
+        :return: The date of the `CloseApproach`, comparable to `self.value` via `self.op`.
+        """
         return approach.time.date()
+
 
 def create_filters(
         date=None, start_date=None, end_date=None,
